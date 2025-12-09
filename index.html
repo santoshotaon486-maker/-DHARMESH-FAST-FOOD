@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DHARMESH FAST FOOD</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{font-family:Arial;margin:0;background:#fff5e6}
+header{background:linear-gradient(90deg,#ff4d00,#ff9900);color:white;padding:20px;text-align:center;font-size:30px;font-weight:bold;letter-spacing:2px}
+.menu{display:flex;flex-wrap:wrap;justify-content:center;padding:10px}
+.item{background:white;width:180px;margin:10px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.3);text-align:center}
+.item img{width:100%;height:130px;object-fit:cover}
+.item h3{color:#ff4d00}
+.item button{background:#ff9900;color:white;border:none;padding:8px 15px;border-radius:10px;margin:10px}
+.offers{background:#ffe0b3;margin:15px;padding:15px;border-radius:12px;text-align:center}
+.form{background:white;margin:15px;padding:15px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+input,select,textarea{width:100%;margin:8px 0;padding:8px}
+button{background:#ff4d00;color:white;border:none;padding:10px;width:100%;border-radius:10px}
+.admin{background:black;color:white;padding:15px;display:none}
+</style>
+
+</head>
+<body>
+
+<header>DHARMESH FAST FOOD</header>
+
+<div class="offers" id="offerBox">
+🔥 BUY 1 GET 1 FREE – ANDA CHAUMIN 🔥
+</div>
+
+<div class="menu" id="menu"></div>
+
+<!-- ORDER FORM -->
+<div class="form">
+<h3>ORDER ON WHATSAPP</h3>
+<input id="name" placeholder="Your Name">
+<input id="phone" placeholder="Phone">
+<textarea id="address" placeholder="Address"></textarea>
+<select id="itemSelect"></select>
+<button onclick="sendWhatsApp()">ORDER</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin" id="admin">
+<h3>ADMIN CONTROL</h3>
+<input id="offerText" placeholder="New Offer">
+<button onclick="updateOffer()">Update Offer</button><br><br>
+
+<input id="newItem" placeholder="Item Name">
+<input id="newPrice" placeholder="Price">
+<input id="newImg" placeholder="Image Link">
+<button onclick="addItem()">Add Item</button>
+</div>
+
+<script>
+// DATA
+let items = [
+ {name:"CHAUMIN",price:40,img:"https://via.placeholder.com/180x130?text=CHAUMIN"},
+ {name:"ANDA CHAUMIN",price:60,img:"https://via.placeholder.com/180x130?text=ANDA+CHAUMIN"},
+ {name:"ANDA ROLL",price:40,img:"https://via.placeholder.com/180x130?text=ANDA+ROLL"},
+ {name:"VEG ROLL",price:30,img:"https://via.placeholder.com/180x130?text=VEG+ROLL"},
+ {name:"VEG CHILLI",price:60,img:"https://via.placeholder.com/180x130?text=VEG+CHILLI"},
+ {name:"CHICKEN CHILLI",price:80,img:"https://via.placeholder.com/180x130?text=CHICKEN+CHILLI"}
+];
+
+function showMenu(){
+ let m=document.getElementById("menu");
+ m.innerHTML="";
+ let s=document.getElementById("itemSelect");
+ s.innerHTML="";
+ items.forEach(i=>{
+ m.innerHTML+=`<div class="item"><img src="${i.img}"><h3>${i.name}</h3><p>₹${i.price}</p></div>`;
+ s.innerHTML+=`<option>${i.name}</option>`;
+ });
+}
+showMenu();
+
+// ORDER TO WHATSAPP
+function sendWhatsApp(){
+ let msg=`Order\nName:${name.value}\nPhone:${phone.value}\nAddress:${address.value}\nItem:${itemSelect.value}`;
+ window.open(`https://wa.me/919523065511?text=${encodeURIComponent(msg)}`);
+}
+
+// ADMIN OFFER
+function updateOffer(){
+ document.getElementById("offerBox").innerText=offerText.value;
+}
+
+// ADD ITEM
+function addItem(){
+ items.push({name:newItem.value,price:newPrice.value,img:newImg.value});
+ showMenu();
+}
+
+// SECRET ADMIN LOGIN (Password: 1234)
+document.addEventListener("dblclick",()=>{
+ let pass=prompt("Enter Admin Password");
+ if(pass=="1234") document.getElementById("admin").style.display="block";
+});
+</script>
+
+</body>
+</html>
